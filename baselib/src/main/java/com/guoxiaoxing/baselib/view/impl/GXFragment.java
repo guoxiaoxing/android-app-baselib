@@ -8,18 +8,19 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
 import com.guoxiaoxing.baselib.GXApplication;
+import com.guoxiaoxing.baselib.injection.AppComponent;
+import com.guoxiaoxing.baselib.presenter.GXPresenter;
 import com.guoxiaoxing.baselib.presenter.loader.PresenterFactory;
 import com.guoxiaoxing.baselib.presenter.loader.PresenterLoader;
-import com.guoxiaoxing.baselib.injection.AppComponent;
-import com.guoxiaoxing.baselib.presenter.BasePresenter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragment implements LoaderManager.LoaderCallbacks<P> {
+public abstract class GXFragment<P extends GXPresenter<V>, V> extends Fragment implements LoaderManager.LoaderCallbacks<P> {
+
     private final static String RECREATION_SAVED_STATE = "recreation_state";
     private final static String LOADER_ID_SAVED_STATE = "loader_id_state";
     /**
-     * Do we need to call {@link #doStart()} from the {@link #onLoadFinished(Loader, BasePresenter)} method.
+     * Do we need to call {@link #doStart()} from the {@link #onLoadFinished(Loader, GXPresenter)} method.
      * Will be true if presenter wasn't loaded when {@link #onStart()} is reached
      */
     private final AtomicBoolean mNeedToCallStart = new AtomicBoolean(false);
@@ -42,7 +43,7 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragme
         super.onCreate(savedInstanceState);
 
         mFirstStart = savedInstanceState == null || savedInstanceState.getBoolean(RECREATION_SAVED_STATE);
-        mUniqueLoaderIdentifier = savedInstanceState == null ? BaseActivity.sViewCounter.incrementAndGet() : savedInstanceState.getInt(LOADER_ID_SAVED_STATE);
+        mUniqueLoaderIdentifier = savedInstanceState == null ? GXActivity.sViewCounter.incrementAndGet() : savedInstanceState.getInt(LOADER_ID_SAVED_STATE);
 
         injectDependencies();
     }

@@ -5,12 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 
-import com.guoxiaoxing.baselib.presenter.BasePresenter;
+import com.guoxiaoxing.baselib.presenter.GXPresenter;
 
 /**
  * Loader that implements the loading of a Presenter, made to persist on activity recreation
  */
-public final class PresenterLoader<T extends BasePresenter> extends Loader<T> {
+public final class PresenterLoader<T extends GXPresenter> extends Loader<T> {
     /**
      * Factory to create the presenter
      */

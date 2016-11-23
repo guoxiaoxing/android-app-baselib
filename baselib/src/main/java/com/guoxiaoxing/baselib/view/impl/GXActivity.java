@@ -8,15 +8,15 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 
 import com.guoxiaoxing.baselib.GXApplication;
+import com.guoxiaoxing.baselib.presenter.GXPresenter;
 import com.guoxiaoxing.baselib.presenter.loader.PresenterFactory;
 import com.guoxiaoxing.baselib.presenter.loader.PresenterLoader;
 import com.guoxiaoxing.baselib.injection.AppComponent;
-import com.guoxiaoxing.baselib.presenter.BasePresenter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class BaseActivity<P extends BasePresenter<V>, V> extends AppCompatActivity implements LoaderManager.LoaderCallbacks<P> {
+public abstract class GXActivity<P extends GXPresenter<V>, V> extends AppCompatActivity implements LoaderManager.LoaderCallbacks<P> {
     /**
      * Common counter for views (fragments and activities) that is used to generate loader ids
      */
@@ -25,7 +25,7 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V> extends AppCom
     private final static String RECREATION_SAVED_STATE = "recreation_state";
     private final static String LOADER_ID_SAVED_STATE = "loader_id_state";
     /**
-     * Do we need to call {@link #doStart()} from the {@link #onLoadFinished(Loader, BasePresenter)} method.
+     * Do we need to call {@link #doStart()} from the {@link #onLoadFinished(Loader, GXPresenter)} method.
      * Will be true if presenter wasn't loaded when {@link #onStart()} is reached
      */
     private final AtomicBoolean mNeedToCallStart = new AtomicBoolean(false);
@@ -49,7 +49,7 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V> extends AppCom
         super.onCreate(savedInstanceState);
 
         mFirstStart = savedInstanceState == null || savedInstanceState.getBoolean(RECREATION_SAVED_STATE);
-        mUniqueLoaderIdentifier = savedInstanceState == null ? BaseActivity.sViewCounter.incrementAndGet() : savedInstanceState.getInt(LOADER_ID_SAVED_STATE);
+        mUniqueLoaderIdentifier = savedInstanceState == null ? GXActivity.sViewCounter.incrementAndGet() : savedInstanceState.getInt(LOADER_ID_SAVED_STATE);
 
         injectDependencies();
 
