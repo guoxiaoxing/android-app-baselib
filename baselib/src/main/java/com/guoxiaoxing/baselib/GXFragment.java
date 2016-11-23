@@ -10,4 +10,5 @@ import android.support.v4.app.Fragment;
  * @since 16/11/17 下午5:55
  */
 public class GXFragment extends Fragment {
+
 }  

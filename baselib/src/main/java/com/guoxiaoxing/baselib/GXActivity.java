@@ -10,4 +10,5 @@ import android.support.v7.app.AppCompatActivity;
  * @since 16/11/17 下午5:55
  */
 public class GXActivity extends AppCompatActivity {
+
 }  
